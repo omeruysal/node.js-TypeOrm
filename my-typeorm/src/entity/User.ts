@@ -1,9 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Tweet } from './Tweet';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
   @Column({ type: 'varchar', length: 200 })
   firstName: string;
@@ -13,4 +14,7 @@ export class User {
 
   @Column({ nullable: true })
   age: number;
+
+  @OneToMany((type) => Tweet, (tweet) => tweet.user)
+  tweets: Promise<Tweet[]>;
 }
